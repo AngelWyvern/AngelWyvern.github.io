@@ -1,0 +1,32 @@
+/* Imports */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans');
+
+/* Universal */
+body { margin: 0; display: flex; flex-direction: column; width: 100vw; height: 100vh; background: var(--background); flex: 0 0 auto; }
+a, div { font-family: 'Open Sans', sans-serif; color: var(--foreground); }
+
+.padding { padding: 3vw; }
+.content { display: flex; flex-direction: column; }
+#main { height: 100%; }
+#nav-bar { display: flex; flex-direction: row; margin: 0 auto; }
+.nav-button { margin: 0 4px; padding: 4px 6px; font-size: 24px; color: var(--foreground-nofocus); text-decoration: none; user-select: none; position: relative; cursor: pointer; transition: color 130ms ease-out; }
+.nav-button:hover, .nav-button[current] { color: var(--foreground); }
+.nav-button::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; background: currentColor; height: 0; transition: height 130ms ease-out; }
+.nav-button:hover::after, .nav-button[current]::after { height: 3px; }
+.nav-button[current] { cursor: default; }
+#copyright { margin: auto auto 0; opacity: 0.4; }
+
+/* Discord thing lol */
+#blur { z-index: 1002; position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: #000000D8; transition: background 250ms ease-out; display: flex; }
+#blur[disabled] { user-select: none; pointer-events: none; background: transparent; }
+.discord-modal { width: 600px; height: 480px; transition: transform 100ms ease-out; background: #18191c /* #36393f */; border-radius: 8px; margin: auto; }
+.discord-modal[transition="pre"] { transform: scale(0); transition: none; }
+.discord-modal[transition="post"] { transform: scale(1.05); }
+.discord-modal-top { height: 200px; flex: 0 0 auto; }
+.discord-modal-bottom { height: 100%; border-top: 1px solid #4f545c7a; padding: 16px 20px; }
+.discord-avatar { background-image: url(./curAvatar.png); background-repeat: no-repeat; background-size: 100%; border-radius: 50%; margin: 24px; width: 120px; height: 120px; }
+.discord-usertag { margin: -8px 16px; color: #FFF; font-family: Helvetica, Arial, sans-serif; font-size: 20px; font-weight: bold; }
+.discord-info { font-family: Helvetica, Arial, sans-serif; font-weight: 800; color: #b9bbbe; text-transform: uppercase; font-size: 12px; margin-bottom: 8px; }
+.discord-text { font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 18px; color: #dcddde; }
+.discord-text a { color: #00aff4; text-decoration: none; }
+.discord-text a:hover { text-decoration: underline; }
