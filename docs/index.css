@@ -8,8 +8,8 @@ a, div { font-family: 'Open Sans', sans-serif; color: var(--foreground); }
 .padding { padding: 3vw; }
 .content { display: flex; flex-direction: column; }
 #main { height: 100%; }
-#nav-bar { display: flex; flex-direction: row; margin: 0 auto; }
-.nav-button { margin: 0 4px; padding: 4px 6px; font-size: 24px; color: var(--foreground-nofocus); text-decoration: none; user-select: none; position: relative; cursor: pointer; transition: color 130ms ease-out; }
+#nav-bar { margin: 0 auto; text-align: center; }
+.nav-button { margin: 0 2px; padding: 4px 6px; font-size: 24px; color: var(--foreground-nofocus); text-decoration: none; user-select: none; position: relative; cursor: pointer; transition: color 130ms ease-out; }
 .nav-button:hover, .nav-button[current] { color: var(--foreground); }
 .nav-button::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; background: currentColor; height: 0; transition: height 130ms ease-out; }
 .nav-button:hover::after, .nav-button[current]::after { height: 3px; }
