@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			body { margin: 0; background: #000; width: 100vw; height: 100vh; display: flex; flex: 0 0 auto; overflow: hidden; }
+			div { color: #FFF; font-size: 16px; font-family: Verdana, Geneva, Tahoma, sans-serif; }
+			div[disabled] { opacity: 0.66; pointer-events: none; user-select: none; }
+			#text { position: absolute; top: 16vh; left: 0; right: 0; text-align: center; font-size: 24px; transition: opacity 180ms ease-out; }
+			#start { margin: auto; padding: 6px 18px; border: 1px solid currentColor; user-select: none; cursor: pointer; transition: background 180ms ease-out, opacity 180ms ease-out; }
+			#start:hover { background: #FFFFFF34; }
+			#start:active { background: #FFFFFF20; transition: none; }
+			#start[disabled] { opacity: 0; }
+		</style>
+		<script>
+			const transitionTime = 200;
+			const minTime = 2000;
+			const maxTime = 15000;
+			var timer = null;
+			var timerTime = 0;
+			document.addEventListener('click', () =>
+			{
+				if (timerTime != 0)
+				{
+					const text = document.querySelector('#text');
+					if (text)
+					{
+						const now = Date.now();
+						if (timer != null)
+						{
+							clearTimeout(timer);
+							timer = null;
+							
+							text.innerText += 'whoops..\n';
+						}
+						else
+						{
+							text.innerText += '\n';
+						}
+
+						text.innerText += `You were ${now - timerTime}ms off.`;
+
+						const start = document.querySelector('#start');
+						if (start)
+							start.removeAttribute('disabled');
+						
+						timerTime = 0;
+					}
+				}
+			});
+			function start(e)
+			{
+				e.setAttribute('disabled', '');
+				
+				const text = document.querySelector('#text');
+				if (text)
+				{
+					text.style.opacity = '0';
+					document.body.style.transition = 'background 180ms ease-out';
+					document.body.style.background = '';
+					setTimeout(() =>
+					{
+						document.body.style.transition = '';
+						text.innerText = 'Get ready to click...';
+						text.style.color = '';
+						text.style.opacity = '';
+						e.style.filter = '';
+
+						var delay = Math.floor(Math.random() * (maxTime - minTime + 1) + minTime);
+						timerTime = Date.now() + delay;
+						timer = setTimeout(() =>
+						{
+							document.body.style.background = '#0F0';
+							text.style.color = '#000';
+							text.innerText += 'NOW!!';
+							e.style.filter = 'invert(1)';
+							timer = null;
+						}, delay);
+					}, transitionTime);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="text">Press "Start Test" to begin</div>
+		<div id="start" onclick="start(this)">Start Test</div>
+	</body>
+</html>
