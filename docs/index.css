@@ -7,7 +7,7 @@ a, div { font-family: 'Open Sans', sans-serif; color: var(--foreground); }
 
 .padding { padding: 3vw; }
 .content { display: flex; flex-direction: column; }
-#main { height: 100%; }
+#main { height: 100%; overflow: hidden; }
 #nav-bar { margin: 0 auto 4px; text-align: center; }
 .nav-button { margin: 0 2px; padding: 4px 6px; font-size: 24px; color: var(--foreground-nofocus); text-decoration: none; user-select: none; position: relative; cursor: pointer; transition: color 130ms ease-out; }
 .nav-button:hover, .nav-button[current] { color: var(--foreground); }
@@ -42,19 +42,19 @@ a, div { font-family: 'Open Sans', sans-serif; color: var(--foreground); }
 .social-media { width: 264px; margin: 6px; padding: 8px; font-size: 22px; background: blue; display: flex; flex-direction: row; flex: 0 0 auto; user-select: none; cursor: pointer; text-decoration: none; border-radius: 6px; /* box-shadow: inset 0 0 0 2px #FFFFFF34; */ transition: filter 130ms ease-out; }
 .social-media:hover { filter: brightness(1.2); }
 .social-media:active { filter: brightness(0.9); transition: none; }
-.social-media div { filter: drop-shadow(2px 2px 0 #000); }
+.social-media div { filter: drop-shadow(2px 2px 0 var(--shadow)); color: inherit; }
 .social-media:nth-child(2) { grid-area: 2 / 1; }
 .social-media:nth-child(3) { grid-area: 3 / 1; }
 .social-media:nth-child(4) { grid-area: 4 / 1; }
 .social-media-icon { display: inline-block; width: 28px; height: 28px; margin: 1px 9px 1px 1px; background-size: 100%; background-repeat: no-repeat; border-radius: 6px; }
-#sm_steam { background: linear-gradient(110deg, #0f2961, #325781); color: #FFF; }
-#sm_discord { background: linear-gradient(110deg, #0f2561, #4c36ad); color: #FFF; }
-#sm_reddit { background: linear-gradient(110deg, #914214, #dd4314); color: #FFF; }
-#sm_gamejolt { background: linear-gradient(110deg, #052707, #187a00); color: #FFF; }
-#sm_itchio { background: linear-gradient(110deg, #cc323f, #b8251b); color: #FFF; }
-#sm_twitter { background: linear-gradient(110deg, #0051ff, #325781); color: #FFF; }
-#sm_youtube { background: linear-gradient(110deg, #aa0000, #240b0b); color: #FFF; }
-#sm_github { background: linear-gradient(110deg, #ffffff, #888888); color: #000; }
+#sm_steam { background: linear-gradient(110deg, #0f2961, #325781); color: #FFF; --shadow: #000; }
+#sm_discord { background: linear-gradient(110deg, #0f2561, #4c36ad); color: #FFF; --shadow: #000; }
+#sm_reddit { background: linear-gradient(110deg, #914214, #dd4314); color: #FFF; --shadow: #000; }
+#sm_gamejolt { background: linear-gradient(110deg, #052707, #187a00); color: #FFF; --shadow: #000; }
+#sm_itchio { background: linear-gradient(110deg, #cc323f, #b8251b); color: #FFF; --shadow: #000; }
+#sm_twitter { background: linear-gradient(110deg, #0051ff, #325781); color: #FFF; --shadow: #000; }
+#sm_youtube { background: linear-gradient(110deg, #aa0000, #240b0b); color: #FFF; --shadow: #000; }
+#sm_github { background: linear-gradient(110deg, #ffffff, #888888); color: #000; --shadow: #FFF; }
 #sm_steam .social-media-icon { background-image: url(./icons/steam.png); }
 #sm_discord .social-media-icon { background-image: url(./icons/discord.png); }
 #sm_reddit .social-media-icon { background-image: url(./icons/reddit.png); }
@@ -62,4 +62,4 @@ a, div { font-family: 'Open Sans', sans-serif; color: var(--foreground); }
 #sm_itchio .social-media-icon { background-image: url(./icons/itchio.png); }
 #sm_twitter .social-media-icon { background-image: url(./icons/twitter.png); }
 #sm_youtube .social-media-icon { background-image: url(./icons/youtube.png); }
-#sm_github .social-media-icon { background-image: url(./icons/github.png); filter: drop-shadow(2px 2px 0 #FFF); }
+#sm_github .social-media-icon { background-image: url(./icons/github.png); }
