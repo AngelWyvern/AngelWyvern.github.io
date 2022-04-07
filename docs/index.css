@@ -7,7 +7,7 @@ a, div { font-family: 'Open Sans', sans-serif; color: var(--foreground); }
 
 .padding { padding: 3vw; }
 .content { display: flex; flex-direction: column; }
-#main { height: 100%; overflow: hidden; }
+#main { height: 100%; }
 #nav-bar { margin: 0 auto 4px; text-align: center; }
 .nav-button { margin: 0 2px; padding: 4px 6px; font-size: 24px; color: var(--foreground-nofocus); text-decoration: none; user-select: none; position: relative; cursor: pointer; transition: color 130ms ease-out; }
 .nav-button:hover, .nav-button[current] { color: var(--foreground); }

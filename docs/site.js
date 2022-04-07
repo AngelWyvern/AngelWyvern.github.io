@@ -87,3 +87,81 @@ function popupDiscord()
 		setTimeout(() => { if (modal) modal.removeAttribute('transition'); }, 150);
 	}
 }
+
+/* Chicken and Cheese told me to do this */
+let kcode = 0, kr = 0, kg = 0, kb = 0;
+function checkKKey(key, e)
+{
+	if (e.code == key)
+	{
+		kcode++;
+		// console.log('Matched key: ' + key);
+		return true;
+	}
+	kcode = 0;
+	if (e.code == 'ArrowUp') // If user is retrying from the beginning
+		kcode++;
+	// console.log('Found key: ' + e.code + ' while looking for key: ' + key);
+	return false;
+}
+document.addEventListener('keydown', e =>
+{
+	switch (kcode)
+	{
+		case 0:
+			checkKKey('ArrowUp', e);
+			break;
+		case 1:
+			checkKKey('ArrowUp', e);
+			break;
+		case 2:
+			checkKKey('ArrowDown', e);
+			break;
+		case 3:
+			checkKKey('ArrowDown', e);
+			break;
+		case 4:
+			checkKKey('ArrowLeft', e);
+			break;
+		case 5:
+			checkKKey('ArrowRight', e);
+			break;
+		case 6:
+			checkKKey('ArrowLeft', e);
+			break;
+		case 7:
+			checkKKey('ArrowRight', e);
+			break;
+		case 8:
+			checkKKey('KeyB', e);
+			break;
+		case 9:
+			checkKKey('KeyA', e);
+			break;
+		case 10:
+			if (checkKKey('Enter', e))
+			{
+				console.log('Activated KC secret!!');
+				setInterval(krgbTimer, 10);
+			}
+			break;
+	}
+});
+function krgbTimer() // thanks https://stackoverflow.com/a/66715824
+{
+	if (kr < 255 && kg == 0 && kb == 0)
+		kr++;
+	else if (kr == 255 && kg < 255 && kb == 0)
+		kg++;
+	else if (kr > 0 && kg == 255 && kb == 0)
+		kr--;
+	else if (kr == 0 && kg == 255 && kb < 255)
+		kb++;
+	else if (kr == 0 && kg > 0 && kb == 255)
+		kg--;
+	else if (kr < 255 && kg == 0 && kb == 255)
+		kr++;
+	else if (kr == 255 && kg == 0 && kb > 0)
+		kb--;
+	document.body.style.background = `rgb(${kr}, ${kg}, ${kb})`;
+}
