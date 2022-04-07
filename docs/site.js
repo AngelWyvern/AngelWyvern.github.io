@@ -17,6 +17,26 @@ document.addEventListener('DOMContentLoaded', () =>
 			}
 		}
 	});
+
+	document.querySelectorAll('.typed').forEach((e) =>
+	{
+		const ms = parseInt(e.getAttribute('ms'));
+		const delay = parseInt(e.getAttribute('delay'));
+		const finalText = e.getAttribute('text');
+		
+		setTimeout(() =>
+		{
+			let text = '';
+
+			const interval = setInterval(() =>
+			{
+				text += finalText[text.length];
+				e.innerText = text;
+				if (text.length >= finalText.length)
+					clearInterval(interval);
+			}, ms);
+		}, delay);
+	});
 });
 
 function popupDiscord()

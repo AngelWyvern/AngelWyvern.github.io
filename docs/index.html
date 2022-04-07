@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="icon" href="favicon.png">
 		<link rel="stylesheet" href="index.css">
 		<link rel="stylesheet" href="dark.css" id="theme">
 		<script src="site.js"></script>
@@ -9,7 +10,7 @@
 		<div id="main" class="content padding">
 			<div id="nav-bar">
 				<a class="nav-button" current>Home</a>
-				<a class="nav-button" href="./projects.html">Projects</a>
+				<a class="nav-button" href="./projects">Projects</a>
 				<a class="nav-button" href="https://steamcommunity.com/profiles/76561198146376832">Steam</a>
 				<a class="nav-button" href="javascript:popupDiscord()">Discord</a>
 				<a class="nav-button" href="https://www.reddit.com/user/Theon32">Reddit</a>
@@ -19,8 +20,26 @@
 				<a class="nav-button" href="https://www.youtube.com/DemonstrationTF">YouTube</a>
 				<a class="nav-button" href="https://github.com/AngelDTF">GitHub</a>
 			</div>
+			<div id="header">
+				<div class="typed" id="typed-desc" text="Your average dev." ms="100" delay="100"></div>
+				<div id="typed-desc-block"></div>
+			</div>
+			<div id="social-medias" class="content" pretransition>
+				<div id="social-media-inf">Find me on my social medias:</div>
+				<div id="social-media-grid">
+					<a class="social-media" id="sm_steam" href="https://steamcommunity.com/profiles/76561198146376832"><div class="social-media-icon"></div><div>Angel Bot</div></a>
+					<a class="social-media" id="sm_discord" href="javascript:popupDiscord()"><div class="social-media-icon"></div><div>Angel Bot#6208</div></a>
+					<a class="social-media" id="sm_reddit" href="https://www.reddit.com/user/Theon32"><div class="social-media-icon"></div><div>u/Theon32</div></a>
+					<a class="social-media" id="sm_gamejolt" href="https://gamejolt.com/@Theon32"><div class="social-media-icon"></div><div>@Theon32</div></a>
+					<a class="social-media" id="sm_itchio" href="https://angel-bot.itch.io/"><div class="social-media-icon"></div><div>Chimera</div></a>
+					<a class="social-media" id="sm_twitter" href="https://twitter.com/Angel_Bot32"><div class="social-media-icon"></div><div>@Angel_Bot32</div></a>
+					<a class="social-media" id="sm_youtube" href="https://www.youtube.com/DemonstrationTF"><div class="social-media-icon"></div><div>DemonstrationTF</div></a>
+					<a class="social-media" id="sm_github" href="https://github.com/AngelDTF"><div class="social-media-icon"></div><div>AngelDTF</div></a>
+				</div>
+			</div>
 			<div id="copyright">Copyright © 2022 angeldtf.github.io - All Rights Reserved.</div>
 		</div>
 		<div id="blur" class="content" disabled></div>
+		<script> setTimeout(() => { document.querySelector('#social-medias').removeAttribute('pretransition'); }, 2250); </script>
 	</body>
 </html>
