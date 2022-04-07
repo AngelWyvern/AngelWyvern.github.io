@@ -17,7 +17,7 @@ a, div { font-family: 'Open Sans', sans-serif; color: var(--foreground); }
 #copyright { margin: auto auto 0; opacity: 0.34; }
 
 /* Discord thing lol */
-#blur { z-index: 1002; position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: #000000D8; transition: background 250ms ease-out; display: flex; }
+#blur { z-index: 1002; position: fixed; top: 0; right: 0; bottom: 0; left: 0; background: #000000D8; transition: background 250ms ease-out; display: flex; }
 #blur[disabled] { user-select: none; pointer-events: none; background: transparent; }
 .discord-modal { width: 600px; height: 480px; transition: transform 100ms ease-out; background: #18191c /* #36393f */; border-radius: 8px; margin: auto; }
 .discord-modal[transition="pre"] { transform: scale(0); transition: none; }
