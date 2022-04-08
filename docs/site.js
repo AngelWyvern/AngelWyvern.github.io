@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () =>
 		}, delay);
 	});
 	
-	setTimeout(() => document.body.removeAttribute('loading'), 25);
+	requestAnimationFrame(() => document.body.removeAttribute('loading'));
 });
 
 document.addEventListener('click', e =>
@@ -117,8 +117,11 @@ function popupDiscord()
 	
 		blur.appendChild(modal);
 		
-		setTimeout(() => { if (modal) modal.setAttribute('transition', 'post'); }, 25);
-		setTimeout(() => { if (modal) modal.removeAttribute('transition'); }, 150);
+		requestAnimationFrame(() =>
+		{
+			if (modal) modal.setAttribute('transition', 'post');
+			setTimeout(() => { if (modal) modal.removeAttribute('transition'); }, 125);
+		});
 	}
 }
 
@@ -135,7 +138,7 @@ function showPrefs()
 		base.classList.add('prefs-base');
 		base.classList.add('content');
 		base.setAttribute('pretransition', '');
-		setTimeout(() => { if (base) base.removeAttribute('pretransition'); }, 25);
+		requestAnimationFrame(() => { if (base) base.removeAttribute('pretransition'); });
 
 		const arrow = document.createElement('div');
 		arrow.classList.add('prefs-arrow');
