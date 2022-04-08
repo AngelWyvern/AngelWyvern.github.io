@@ -51,6 +51,8 @@ document.addEventListener('DOMContentLoaded', () =>
 			}, ms);
 		}, delay);
 	});
+	
+	document.body.removeAttribute('loading');
 });
 
 document.addEventListener('click', e =>
