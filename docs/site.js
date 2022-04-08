@@ -6,7 +6,7 @@ if (getCookie('theme') == 'lite')
 {
 	document.querySelector('#theme').href = 'lite.css';
 }
-if (getCookie('minNavBar') == true)
+if (getCookie('minNavBar') == 'true')
 {
 	document.body.classList.add('minNavBar');
 }
@@ -196,7 +196,7 @@ function toggleTheme()
 function toggleMinNav()
 {
 	document.body.classList.contains('minNavBar') ? document.body.classList.remove('minNavBar') : document.body.classList.add('minNavBar');
-	setCookie('minNavBar', document.body.classList.contains('minNavBar'));
+	setCookie('minNavBar', document.body.classList.contains('minNavBar') ? 'true' : 'false');
 	hidePrefs();
 }
 
