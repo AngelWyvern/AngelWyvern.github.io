@@ -313,6 +313,6 @@ function krgbTimer() // thanks https://stackoverflow.com/a/66715824
 /* Fun code */
 function requestAnimationFrames(func, num)
 {
-	if (num <= 1) func();
+	if (num <= 0) func();
 	else requestAnimationFrame(() => requestAnimationFrames(func, num - 1));
 }
