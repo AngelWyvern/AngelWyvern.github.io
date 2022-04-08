@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () =>
 		}, delay);
 	});
 	
-	requestAnimationFrame(() => document.body.removeAttribute('loading'));
+	requestAnimationFrames(() => document.body.removeAttribute('loading'), 2); // getting the second animation frame after fully loaded
 });
 
 document.addEventListener('click', e =>
@@ -308,4 +308,11 @@ function krgbTimer() // thanks https://stackoverflow.com/a/66715824
 	else if (kr == 255 && kg == 0 && kb > 0)
 		kb--;
 	document.body.style.background = `rgb(${kr}, ${kg}, ${kb})`;
+}
+
+/* Fun code */
+function requestAnimationFrames(func, num)
+{
+	if (num <= 1) func();
+	else requestAnimationFrame(() => requestAnimationFrames(func, num - 1));
 }
