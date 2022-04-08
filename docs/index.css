@@ -1,5 +1,6 @@
 /* Imports */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro');
 
 /* Universal */
 body { margin: 0; display: flex; flex-direction: column; width: 100vw; height: 100vh; background: var(--background); flex: 0 0 auto; overflow: hidden; transition: background 0.5s linear; }
@@ -56,7 +57,7 @@ body[loading], body[loading] * { transition: none; }
 
 /* Home page */
 #header { margin: 64px auto 0; display: inline-flex; min-height: 6vw; }
-#typed-desc { font-family: monospace; font-size: 5vw; /* text-transform: uppercase; */ white-space: pre; font-weight: 600; }
+#typed-desc { font-family: 'Source Code Pro', monospace; font-size: 5vw; /* text-transform: uppercase; */ white-space: pre; font-weight: 600; }
 #typed-desc-block { aspect-ratio: 7/15; height: 100%; box-shadow: inset 0 0 0 0.4vw var(--foreground); }
 #social-medias-container { height: 100%; }
 #social-medias { margin: 4vw auto 0; position: relative; transition: top 1.25s cubic-bezier(.25,.5,.25,1), opacity 1.25s cubic-bezier(.25,.5,.25,1); top: 0; }
