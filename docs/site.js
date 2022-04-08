@@ -81,37 +81,24 @@ function popupDiscord()
 	{
 		blur.removeAttribute('disabled');
 	
-		const modal = document.createElement('div');
-		modal.classList.add('content');
-		modal.classList.add('discord-modal');
-		modal.setAttribute('transition', 'pre');
+		const modal = InitializeElement('div', { "className":"content discord-modal", "attributes":[['transition', 'pre']] });
 	
-		const top = document.createElement('div');
-		top.classList.add('content');
-		top.classList.add('discord-modal-top');
+		const top = InitializeElement('div', { "className":"content discord-modal-top" });
 		modal.appendChild(top);
 	
-		const bottom = document.createElement('div');
-		bottom.classList.add('content');
-		bottom.classList.add('discord-modal-bottom');
+		const bottom = InitializeElement('div', { "className":"content discord-modal-bottom" });
 		modal.appendChild(bottom);
 	
-		const avatar = document.createElement('div');
-		avatar.classList.add('discord-avatar');
+		const avatar = InitializeElement('div', { "className":"discord-avatar" });
 		top.appendChild(avatar);
 	
-		const name = document.createElement('div');
-		name.classList.add('discord-usertag');
-		name.innerHTML = `Angel Bot<span style="margin-left: 1px; color: #b9bbbe;">#6208</span>`;
+		const name = InitializeElement('div', { "className":"discord-usertag", "innerHTML":`Angel Bot<span style="margin-left: 1px; color: #b9bbbe;">#6208</span>` });
 		top.appendChild(name);
 
-		const info = document.createElement('div');
-		info.classList.add('discord-info');
-		info.innerText = 'About Me';
+		const info = InitializeElement('div', { "className":"discord-info", "innerText":"About Me" });
 		bottom.appendChild(info);
 
-		const text = document.createElement('div');
-		text.classList.add('discord-text');
+		const text = InitializeElement('div', { "className":"discord-text" });
 		text.innerHTML = `<strong>SHORT</strong><br>Your average gamer.<br><br><strong>LONG</strong><br>Hey all, I am a freelance programmer who enjoys video games and hosts servers for people's enjoyment (<a href="https://vortexpolygonal.tf/">https://vortexpolygonal.tf/</a>).`;
 		bottom.appendChild(text);
 	
@@ -134,30 +121,18 @@ function showPrefs()
 	{
 		const rect = gear.getBoundingClientRect();
 
-		const base = document.createElement('div');
-		base.classList.add('prefs-base');
-		base.classList.add('content');
-		base.setAttribute('pretransition', '');
+		const base = InitializeElement('div', { "className":"prefs-base content", "attributes":[["pretransition"]] });
 		requestAnimationFrame(() => { if (base) base.removeAttribute('pretransition'); });
 
-		const arrow = document.createElement('div');
-		arrow.classList.add('prefs-arrow');
+		const arrow = InitializeElement('div', { "className":"prefs-arrow" });
 		base.appendChild(arrow);
 
-		const menu = document.createElement('div');
-		menu.classList.add('prefs-menu');
-		menu.classList.add('content');
+		const menu = InitializeElement('div', { "className":"prefs-menu content" });
 		
-		const themeToggle = document.createElement('a');
-		themeToggle.classList.add('prefs-button');
-		themeToggle.innerText = 'Toggle Theme';
-		themeToggle.href = 'javascript:toggleTheme()';
+		const themeToggle = InitializeElement('a', { "className":"prefs-button", "innerText":"Toggle Theme", "href":"javascript:toggleTheme()" });
 		menu.appendChild(themeToggle);
 		
-		const minNavToggle = document.createElement('a');
-		minNavToggle.classList.add('prefs-button');
-		minNavToggle.innerText = 'Toggle Minimal Navigation';
-		minNavToggle.href = 'javascript:toggleMinNav()';
+		const minNavToggle = InitializeElement('a', { "className":"prefs-button", "innerText":"Toggle Minimal Navigation", "href":"javascript:toggleMinNav()" });
 		menu.appendChild(minNavToggle);
 		
 		base.appendChild(menu);
@@ -231,7 +206,8 @@ function getCookie(name)
     return null;
 }
 
-/* Chicken and Cheese told me to do this */
+/* START: KC Secret */
+// Chicken and Cheese told me to do this
 let kcode = 0, kr = 0, kg = 0, kb = 0;
 function checkKKey(key, e)
 {
@@ -309,10 +285,47 @@ function krgbTimer() // thanks https://stackoverflow.com/a/66715824
 		kb--;
 	document.body.style.background = `rgb(${kr}, ${kg}, ${kb})`;
 }
+/* END: KC Secret */
 
-/* Fun code */
+/* START: Fun code */
 function requestAnimationFrames(func, num)
 {
 	if (num <= 0) func();
 	else requestAnimationFrame(() => requestAnimationFrames(func, num - 1));
 }
+
+/** 
+ * Initialize a DOM Element
+ * 
+ * @param {string} tag REQUIRED: Element Tag Name 
+ * @param {Object} [options] OPTIONAL: Element JSON Options
+ * 
+ * @param {string} [options.id] OPTIONAL: Element ID Name
+ * @param {string} [options.className] OPTIONAL: Element Class Name
+ * @param {string} [options.style] OPTIONAL: Element Attributes
+ * @param {Array} [options.attributes] OPTIONAL: Element Attributes
+ * @param {string} [options.innerHTML] OPTIONAL: Element Inner HTML
+ * @param {string} [options.innerText] OPTIONAL: Element Inner Text
+ * @param {string} [options.href] OPTIONAL: HREF Link
+ * 
+ * @returns {HTMLElement} New HTML Element
+ */
+ function InitializeElement(tag, options = null)
+ {
+	 var element = document.createElement(tag);
+	 if (options != null)
+	 {
+		 for (const key in options)
+		 {
+			 if      (key == 'id')         element.id = options.id;
+			 else if (key == 'className')  element.className = options.className;
+			 else if (key == 'style')      element.setAttribute('style', options.style);
+			 else if (key == 'attributes') options.attributes.forEach(keyvalue => element.setAttribute(keyvalue[0], (keyvalue[1] != undefined) ? keyvalue[1] : ''));
+			 else if (key == 'innerHTML')  element.innerHTML = options.innerHTML;
+			 else if (key == 'innerText')  element.innerText = options.innerText;
+			 else if (key == 'href')       element.href = options.href;
+		 }
+	 }
+	 return element;
+ }
+ /* END: Fun code */
