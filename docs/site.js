@@ -1,19 +1,19 @@
 let prefsVisible = false;
 const prefsWhitelist = ['prefs-base', 'prefs-arrow', 'prefs-menu', 'prefs-button'];
 
-/* START: Cookie loading */
-if (getCookie('theme') == 'lite')
-{
-	document.querySelector('#theme').href = 'lite.css';
-}
-if (getCookie('minNavBar') == 'true')
-{
-	document.body.classList.add('minNavBar');
-}
-/* END: Cookie loading */
-
 document.addEventListener('DOMContentLoaded', () =>
 {
+	/* START: Cookie loading */
+	if (getCookie('theme') == 'lite')
+	{
+		document.querySelector('#theme').href = 'lite.css';
+	}
+	if (getCookie('minNavBar') == 'true')
+	{
+		document.body.classList.add('minNavBar');
+	}
+	/* END: Cookie loading */
+
 	const blur = document.querySelector('#blur');
 
 	blur.addEventListener('click', (e) =>
