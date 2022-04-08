@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () =>
 		}, delay);
 	});
 	
-	document.body.removeAttribute('loading');
+	setTimeout(() => document.body.removeAttribute('loading'), 25);
 });
 
 document.addEventListener('click', e =>
