@@ -52,10 +52,7 @@ document.addEventListener('DOMContentLoaded', () =>
 		}, delay);
 	});
 	
-	requestAnimationFrame(() =>
-	{
-		requestAnimationFrame(() => document.body.removeAttribute('loading')); // getting the second animation frame after fully loaded
-	});
+	requestAnimationFrame(() => document.body.removeAttribute('loading'));
 });
 
 document.addEventListener('click', e =>
