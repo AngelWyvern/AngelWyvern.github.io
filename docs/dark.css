@@ -1,6 +1,10 @@
 :root
 {
 	--background: #000;
+	--background-popup: #333;
+	--background-btn: #FFFFFF20;
+	--background-btn-hover: #FFFFFF34;
+	--background-btn-active: #FFFFFF10;
 	--foreground: #FFF;
 	--foreground-nofocus: #CCC;
 	--foreground-sub: #666;

@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans');
 
 /* Universal */
-body { margin: 0; display: flex; flex-direction: column; width: 100vw; height: 100vh; background: var(--background); flex: 0 0 auto; overflow: hidden; }
+body { margin: 0; display: flex; flex-direction: column; width: 100vw; height: 100vh; background: var(--background); flex: 0 0 auto; overflow: hidden; transition: background 0.5s linear; }
 a, div { font-family: 'Open Sans', sans-serif; color: var(--foreground); }
 
 .padding { padding: 3vw; }
@@ -16,7 +16,12 @@ a, div { font-family: 'Open Sans', sans-serif; color: var(--foreground); }
 .nav-button::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; background: currentColor; height: 0; transition: height 130ms ease-out; }
 .nav-button:hover::after, .nav-button[current]::after { height: 3px; }
 .nav-button[current] { cursor: default; }
+.nav-button svg { margin-bottom: -3px; }
+.minNavBar .nav-extra { display: none; }
 #copyright { margin: auto auto 0; color: var(--foreground-sub); }
+
+#blur { z-index: 1002; position: fixed; top: 0; right: 0; bottom: 0; left: 0; background: #000000D8; transition: background 250ms ease-out; display: flex; }
+#blur[disabled] { user-select: none; pointer-events: none; background: transparent; }
 
 /* Scrollbars */
 ::-webkit-scrollbar { width: 16px; height: 16px; }
@@ -26,8 +31,6 @@ a, div { font-family: 'Open Sans', sans-serif; color: var(--foreground); }
 ::-webkit-scrollbar-corner { background-color: transparent; }
 
 /* Discord thing lol */
-#blur { z-index: 1002; position: fixed; top: 0; right: 0; bottom: 0; left: 0; background: #000000D8; transition: background 250ms ease-out; display: flex; }
-#blur[disabled] { user-select: none; pointer-events: none; background: transparent; }
 .discord-modal { width: 600px; height: 480px; transition: transform 100ms ease-out; background: #18191c /* #36393f */; border-radius: 8px; margin: auto; }
 .discord-modal[transition="pre"] { transform: scale(0); transition: none; }
 .discord-modal[transition="post"] { transform: scale(1.05); }
@@ -39,6 +42,15 @@ a, div { font-family: 'Open Sans', sans-serif; color: var(--foreground); }
 .discord-text { font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 18px; color: #dcddde; }
 .discord-text a { color: #00aff4; text-decoration: none; }
 .discord-text a:hover { text-decoration: underline; }
+
+/* Preferences */
+.prefs-base { position: absolute; transition: opacity 180ms cubic-bezier(.25,.5,.25,1), margin-top 180ms cubic-bezier(.25,.5,.25,1); }
+.prefs-base[pretransition] { opacity: 0; margin-top: 32px; transition: none; }
+.prefs-arrow { --size: 12px; border-top: var(--size) solid transparent; border-left: var(--size) solid transparent; border-right: var(--size) solid transparent; border-bottom: var(--size) solid var(--background-popup); margin: 0 auto; z-index: 2002; }
+.prefs-menu { width: 240px; min-height: 24px; padding: 2px 6px; background: var(--background-popup); border-radius: 8px; box-shadow: 2px 2px 4px 0 #00000066; z-index: 2001; }
+.prefs-button { background: var(--background-btn); margin: 4px 0; padding: 3px 6px; border-radius: 6px; user-select: none; cursor: pointer; text-decoration: none; transition: background 130ms ease-out; }
+.prefs-button:hover { background: var(--background-btn-hover); }
+.prefs-button:active { background: var(--background-btn-active); transition: none; }
 
 /* Home page */
 #header { margin: 64px auto 0; display: inline-flex; min-height: 6vw; }

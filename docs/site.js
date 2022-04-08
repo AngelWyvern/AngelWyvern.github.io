@@ -1,3 +1,17 @@
+let prefsVisible = false;
+const prefsWhitelist = ['prefs-base', 'prefs-arrow', 'prefs-menu', 'prefs-button'];
+
+/* START: Cookie loading */
+if (getCookie('theme') == 'lite')
+{
+	document.querySelector('#theme').href = 'lite.css';
+}
+if (getCookie('minNavBar') == true)
+{
+	document.body.classList.add('minNavBar');
+}
+/* END: Cookie loading */
+
 document.addEventListener('DOMContentLoaded', () =>
 {
 	const blur = document.querySelector('#blur');
@@ -37,6 +51,24 @@ document.addEventListener('DOMContentLoaded', () =>
 			}, ms);
 		}, delay);
 	});
+});
+
+document.addEventListener('click', e =>
+{
+	if (prefsVisible && e.target)
+	{
+		let doClose = true;
+		prefsWhitelist.forEach(classname =>
+		{
+			doClose = doClose && !e.target.classList.contains(classname);
+		});
+		if (doClose) setTimeout(hidePrefs, 10);
+	}
+});
+
+window.addEventListener('resize', () =>
+{
+	if (prefsVisible) hidePrefs();
 });
 
 function popupDiscord()
@@ -86,6 +118,112 @@ function popupDiscord()
 		setTimeout(() => { if (modal) modal.setAttribute('transition', 'post'); }, 25);
 		setTimeout(() => { if (modal) modal.removeAttribute('transition'); }, 150);
 	}
+}
+
+function showPrefs()
+{
+	if (prefsVisible) return;
+	prefsVisible = true;
+	const gear = document.querySelector('#gear');
+	if (gear)
+	{
+		const rect = gear.getBoundingClientRect();
+
+		const base = document.createElement('div');
+		base.classList.add('prefs-base');
+		base.classList.add('content');
+		base.setAttribute('pretransition', '');
+		setTimeout(() => { if (base) base.removeAttribute('pretransition'); }, 25);
+
+		const arrow = document.createElement('div');
+		arrow.classList.add('prefs-arrow');
+		base.appendChild(arrow);
+
+		const menu = document.createElement('div');
+		menu.classList.add('prefs-menu');
+		menu.classList.add('content');
+		
+		const themeToggle = document.createElement('a');
+		themeToggle.classList.add('prefs-button');
+		themeToggle.innerText = 'Toggle Theme';
+		themeToggle.href = 'javascript:toggleTheme()';
+		menu.appendChild(themeToggle);
+		
+		const minNavToggle = document.createElement('a');
+		minNavToggle.classList.add('prefs-button');
+		minNavToggle.innerText = 'Toggle Minimal Navigation';
+		minNavToggle.href = 'javascript:toggleMinNav()';
+		menu.appendChild(minNavToggle);
+		
+		base.appendChild(menu);
+
+		document.body.appendChild(base);
+		base.style.top = rect.bottom + 'px';
+		base.style.left = ((rect.left + (rect.width / 2)) - (base.clientWidth / 2)) + 'px';
+
+		const menuRect = menu.getBoundingClientRect();
+		if (menuRect.right > window.innerWidth) menu.style.transform = `translateX(${window.innerWidth - menuRect.right}px)`;
+		else if (menuRect.left < 0) menu.style.transform = `translateX(${-menuRect.left}px)`;
+
+		gear.setAttribute('current', '');
+	}
+}
+
+function hidePrefs()
+{
+	if (!prefsVisible) return;
+	prefsVisible = false;
+	document.querySelector('.prefs-base').remove();
+	const gear = document.querySelector('#gear');
+	if (gear) gear.removeAttribute('current');
+}
+
+function toggleTheme()
+{
+	const theme = document.querySelector('#theme');
+	if (theme.href.endsWith('/dark.css'))
+	{
+		theme.href = 'lite.css';
+		setCookie('theme', 'lite');
+	}
+	else
+	{
+		theme.href = 'dark.css';
+		setCookie('theme', 'dark');
+	}
+}
+
+function toggleMinNav()
+{
+	document.body.classList.contains('minNavBar') ? document.body.classList.remove('minNavBar') : document.body.classList.add('minNavBar');
+	setCookie('minNavBar', document.body.classList.contains('minNavBar'));
+	hidePrefs();
+}
+
+// Thanks Grepper for these two functions
+function setCookie(name,value,days)
+{
+    var expires = "";
+    if (days)
+	{
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+
+function getCookie(name)
+{
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i=0; i < ca.length; i++)
+	{
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
 }
 
 /* Chicken and Cheese told me to do this */
@@ -142,6 +280,7 @@ document.addEventListener('keydown', e =>
 			if (checkKKey('Enter', e))
 			{
 				console.log('Activated KC secret!!');
+				document.body.style.transition = 'none'; // prevent computing transitions, krgb is smooth enough
 				setInterval(krgbTimer, 10);
 			}
 			break;
