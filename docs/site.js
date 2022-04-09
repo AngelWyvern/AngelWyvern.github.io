@@ -137,7 +137,7 @@ function showPrefs()
 		
 		base.appendChild(menu);
 
-		document.body.appendChild(base);
+		document.querySelector('#main').appendChild(base);
 		base.style.top = rect.bottom + 'px';
 		base.style.left = ((rect.left + (rect.width / 2)) - (base.clientWidth / 2)) + 'px';
 
