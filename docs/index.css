@@ -4,7 +4,7 @@
 
 /* Universal */
 body { margin: 0; display: flex; flex-direction: column; width: 100vw; height: 100vh; background: var(--background); flex: 0 0 auto; overflow: hidden; transition: background 0.5s linear; }
-a, div { font-family: 'Open Sans', sans-serif; color: var(--foreground); }
+a, div, span { font-family: 'Open Sans', sans-serif; color: var(--foreground); }
 
 body[loading], body[loading] * { transition: none; }
 
@@ -89,3 +89,18 @@ body[loading], body[loading] * { transition: none; }
 #sm_twitter .social-media-icon { background-image: url(./icons/twitter.png); }
 #sm_youtube .social-media-icon { background-image: url(./icons/youtube.png); }
 #sm_github .social-media-icon { background-image: url(./icons/github.png); }
+
+/* Projects/Tools page */
+.project-section { margin: 16px auto; font-size: 32px; }
+.project-container { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; margin: 0 auto; }
+.project { margin: 6px; padding: 8px; width: 224px; min-height: 344px; height: auto; background: var(--background-popup); border-radius: 8px; flex: 0 0 auto; box-shadow: 2px 2px 4px 0 #00000060;  }
+.project-banner { height: 56px; margin-bottom: 8px; border-radius: 6px; background-size: cover; box-shadow: 2px 2px 4px 0 #00000034; }
+.project-header { margin: 2px 0 12px; text-align: center; font-size: 18px; font-weight: 600; }
+.project-paragraph { color: var(--foreground-nofocus); text-align: center; font-size: 15px; margin-bottom: auto; }
+.project-button { margin-top: 8px; padding: 4px; text-align: center; text-decoration: none; font-size: 16px; background: linear-gradient(110deg, #606060, #A0A0A0); color: #FFF; --shadow: #000; border-radius: 6px; user-select: none; cursor: pointer; transition: filter 130ms ease-out; box-shadow: 2px 2px 4px 0 #00000034; }
+.project-button:hover { filter: brightness(1.2); }
+.project-button:active { filter: brightness(0.9); transition: none; }
+.project-button div { filter: drop-shadow(1px 1px 0 var(--shadow)); color: inherit; }
+.project-button-red { background: linear-gradient(110deg, #800000, #C40000); color: #FFF; --shadow: #000; }
+.project-button-green { background: linear-gradient(110deg, #008000, #00C400); color: #FFF; --shadow: #000; }
+.project-button-blue { background: linear-gradient(110deg, #003080, #0060C4); color: #FFF; --shadow: #000; }

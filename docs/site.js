@@ -92,7 +92,7 @@ function popupDiscord()
 		const avatar = InitializeElement('div', { "className":"discord-avatar" });
 		top.appendChild(avatar);
 	
-		const name = InitializeElement('div', { "className":"discord-usertag", "innerHTML":`Angel Bot<span style="margin-left: 1px; color: #b9bbbe;">#6208</span>` });
+		const name = InitializeElement('div', { "className":"discord-usertag", "innerHTML":`Angel Bot<span style="color: #b9bbbe;">#6208</span>` });
 		top.appendChild(name);
 
 		const info = InitializeElement('div', { "className":"discord-info", "innerText":"About Me" });
