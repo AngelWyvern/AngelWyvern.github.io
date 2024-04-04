@@ -1,32 +1,28 @@
-let prefsVisible = false;
-const prefsWhitelist = ['prefs-base', 'prefs-arrow', 'prefs-menu', 'prefs-button'];
+const root = document.querySelector(':root');
+var shouldRefresh = false;
 
 document.addEventListener('DOMContentLoaded', () =>
 {
 	/* START: Cookie loading */
-	if (getCookie('theme') == 'lite')
-	{
-		document.querySelector('#theme').href = 'lite.css';
-	}
-	if (getCookie('minNavBar') == 'true')
-	{
-		document.body.classList.add('minNavBar');
-	}
+	const themeCookie = getCookie('theme');
+	if (themeCookie)
+		root.setAttribute('theme', themeCookie);
 	/* END: Cookie loading */
 
-	const blur = document.querySelector('#blur');
+	document.querySelector('#copyright').innerText = `Copyright © 2022-${new Date().getUTCFullYear()} angeldtf.github.io - All Rights Reserved.`;
 
+	const blur = document.querySelector('#blur');
 	blur.addEventListener('click', (e) =>
 	{
-		if (e.target == blur && !blur.hasAttribute('disabled'))
+		if (e.target == blur && !blur.hasAttribute('disabled') && !blur.hasAttribute('persist'))
 		{
 			blur.setAttribute('disabled', '');
+			blur.removeAttribute('dark');
 
 			const modal = document.querySelector('.discord-modal');
-			
 			if (modal)
 			{
-				modal.setAttribute('style', 'transform: scale(0) !important;'); // priority
+				modal.style.transform = 'scale(0)';
 				setTimeout(() => { if (modal) modal.remove(); }, 100);
 			}
 		}
@@ -36,152 +32,85 @@ document.addEventListener('DOMContentLoaded', () =>
 	{
 		const ms = parseInt(e.getAttribute('ms'));
 		const delay = parseInt(e.getAttribute('delay'));
-		const finalText = e.getAttribute('text');
+
+		const deviation = 24; //ms * 0.24;
+		let rnd = Math.random() * deviation - deviation / 2;
 		
 		setTimeout(() =>
 		{
 			let text = '';
+			const finalText = e.getAttribute('text');
 
-			const interval = setInterval(() =>
+			function tm()
 			{
 				text += finalText[text.length];
 				e.innerText = text;
-				if (text.length >= finalText.length)
-					clearInterval(interval);
-			}, ms);
+				if (text.length < finalText.length)
+				{
+					rnd = Math.random() * 25 - 12.5;
+					switch (finalText[text.length - 1])
+					{
+						case ',':
+						case ':':
+						case ';':
+							rnd += Math.random() * 25 + 125;
+							break;
+						case '.':
+						case '!':
+						case '?':
+							rnd += Math.random() * 50 + 300;
+							break;
+					}
+					setTimeout(tm, ms + rnd);
+				}
+			}
+			tm();
 		}, delay);
 	});
 	
 	requestAnimationFrames(() => document.body.removeAttribute('loading'), 2); // getting the second animation frame after fully loaded
-});
+}, { once:true });
 
-document.addEventListener('click', e =>
+window.addEventListener('pageshow', e =>
 {
-	if (prefsVisible && e.target)
-	{
-		let doClose = true;
-		prefsWhitelist.forEach(classname =>
-		{
-			doClose = doClose && !e.target.classList.contains(classname);
-		});
-		if (doClose) setTimeout(hidePrefs, 10);
-	}
-});
-
-window.addEventListener('resize', () =>
-{
-	if (prefsVisible) hidePrefs();
+	// thanks https://stackoverflow.com/a/43043658
+	var historyTraversal = event.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
+	if (historyTraversal && shouldRefresh)
+		window.location.reload();
 });
 
 function popupDiscord()
 {
 	const blur = document.querySelector('#blur');
-	
 	if (blur)
 	{
 		blur.removeAttribute('disabled');
-	
-		const modal = InitializeElement('div', { "className":"content discord-modal", "attributes":[['transition', 'pre']] });
-	
-		const top = InitializeElement('div', { "className":"content discord-modal-top" });
-		modal.appendChild(top);
-	
-		const bottom = InitializeElement('div', { "className":"content discord-modal-bottom" });
-		modal.appendChild(bottom);
-	
-		const avatar = InitializeElement('div', { "className":"discord-avatar" });
-		top.appendChild(avatar);
-	
-		const name = InitializeElement('div', { "className":"discord-usertag", "innerHTML":`Chimera<span style="color: #b9bbbe;">#1424</span>` });
-		top.appendChild(name);
+		blur.setAttribute('dark', '');
 
-		const info = InitializeElement('div', { "className":"discord-info", "innerText":"About Me" });
-		bottom.appendChild(info);
-
-		const text = InitializeElement('div', { "className":"discord-text" });
-		text.innerHTML = `<strong>SHORT</strong><br>Your average gamer.<br><br><strong>LONG</strong><br>Hey all, I am a freelance programmer who enjoys video games and hosts servers for people's enjoyment (<a href="https://vortexpolygonal.tf/">https://vortexpolygonal.tf/</a>).`;
-		bottom.appendChild(text);
-	
+		const modal = InitializeElement('iframe', { className:'discord-modal', attributes:{ width:608, height:700, src:'/modals/discord-profile.html' }, style:'transform: scale(0)' });
 		blur.appendChild(modal);
-		
-		requestAnimationFrame(() =>
+
+		requestAnimationFrames(() =>
 		{
-			if (modal) modal.setAttribute('transition', 'post');
-			setTimeout(() => { if (modal) modal.removeAttribute('transition'); }, 125);
-		});
+			if (modal)
+				modal.style.transform = 'scale(1)';
+		}, 2); // sometimes, 1 animation frame isn't enough for the transition to play, so we wait 2 frames just in case
 	}
-}
-
-function showPrefs()
-{
-	if (prefsVisible) return;
-	prefsVisible = true;
-	const gear = document.querySelector('#gear');
-	if (gear)
-	{
-		const rect = gear.getBoundingClientRect();
-
-		const base = InitializeElement('div', { "className":"prefs-base content", "attributes":[["pretransition"]] });
-		requestAnimationFrame(() => { if (base) base.removeAttribute('pretransition'); });
-
-		const arrow = InitializeElement('div', { "className":"prefs-arrow" });
-		base.appendChild(arrow);
-
-		const menu = InitializeElement('div', { "className":"prefs-menu content" });
-		
-		const themeToggle = InitializeElement('a', { "className":"prefs-button", "innerText":"Toggle Theme", "href":"javascript:toggleTheme()" });
-		menu.appendChild(themeToggle);
-		
-		const minNavToggle = InitializeElement('a', { "className":"prefs-button", "innerText":"Toggle Minimal Navigation", "href":"javascript:toggleMinNav()" });
-		menu.appendChild(minNavToggle);
-		
-		base.appendChild(menu);
-
-		document.querySelector('#main').appendChild(base);
-		base.style.top = rect.bottom + 'px';
-		base.style.left = ((rect.left + (rect.width / 2)) - (base.clientWidth / 2)) + 'px';
-
-		const menuRect = menu.getBoundingClientRect();
-		if (menuRect.right > window.innerWidth) menu.style.transform = `translateX(${window.innerWidth - menuRect.right}px)`;
-		else if (menuRect.left < 0) menu.style.transform = `translateX(${-menuRect.left}px)`;
-
-		gear.setAttribute('current', '');
-	}
-}
-
-function hidePrefs()
-{
-	if (!prefsVisible) return;
-	prefsVisible = false;
-	document.querySelector('.prefs-base').remove();
-	const gear = document.querySelector('#gear');
-	if (gear) gear.removeAttribute('current');
 }
 
 function toggleTheme()
 {
-	const theme = document.querySelector('#theme');
-	if (theme.href.endsWith('/dark.css'))
-	{
-		theme.href = 'lite.css';
-		setCookie('theme', 'lite');
-	}
-	else
-	{
-		theme.href = 'dark.css';
-		setCookie('theme', 'dark');
-	}
-}
+	let theme = root.getAttribute('theme');
 
-function toggleMinNav()
-{
-	document.body.classList.contains('minNavBar') ? document.body.classList.remove('minNavBar') : document.body.classList.add('minNavBar');
-	setCookie('minNavBar', document.body.classList.contains('minNavBar') ? 'true' : 'false');
-	hidePrefs();
+	if (theme == 'dark') theme = 'lite';
+	else theme = 'dark';
+
+	root.setAttribute('theme', theme)
+	setCookie('theme', theme);
 }
 
 // Thanks Grepper for these two functions
-function setCookie(name,value,days)
+function setCookie(name, value, days)
 {
     var expires = "";
     if (days)
@@ -303,29 +232,53 @@ function requestAnimationFrames(func, num)
  * @param {string} [options.id] OPTIONAL: Element ID Name
  * @param {string} [options.className] OPTIONAL: Element Class Name
  * @param {string} [options.style] OPTIONAL: Element Attributes
- * @param {Array} [options.attributes] OPTIONAL: Element Attributes
+ * @param {Object} [options.attributes] OPTIONAL: Element Attributes
  * @param {string} [options.innerHTML] OPTIONAL: Element Inner HTML
  * @param {string} [options.innerText] OPTIONAL: Element Inner Text
  * @param {string} [options.href] OPTIONAL: HREF Link
  * 
  * @returns {HTMLElement} New HTML Element
  */
- function InitializeElement(tag, options = null)
- {
-	 var element = document.createElement(tag);
-	 if (options != null)
-	 {
-		 for (const key in options)
-		 {
-			 if      (key == 'id')         element.id = options.id;
-			 else if (key == 'className')  element.className = options.className;
-			 else if (key == 'style')      element.setAttribute('style', options.style);
-			 else if (key == 'attributes') options.attributes.forEach(keyvalue => element.setAttribute(keyvalue[0], (keyvalue[1] != undefined) ? keyvalue[1] : ''));
-			 else if (key == 'innerHTML')  element.innerHTML = options.innerHTML;
-			 else if (key == 'innerText')  element.innerText = options.innerText;
-			 else if (key == 'href')       element.href = options.href;
-		 }
-	 }
-	 return element;
- }
- /* END: Fun code */
+function InitializeElement(tag, options = null)
+{
+	var element = document.createElement(tag);
+	if (options != null)
+	{
+		for (const key in options)
+		{
+			if      (key == 'id')         element.id = options.id;
+			else if (key == 'className')  element.className = options.className;
+			else if (key == 'style')      element.setAttribute('style', options.style);
+			else if (key == 'attributes') for (const attrKey in options.attributes) element.setAttribute(attrKey, options.attributes[attrKey]);
+			else if (key == 'innerHTML')  element.innerHTML = options.innerHTML;
+			else if (key == 'innerText')  element.innerText = options.innerText;
+			else if (key == 'href')       element.href = options.href;
+		}
+	}
+	return element;
+}
+
+/**
+ * Gets the bounding rectangle of an element for fixed positioning (only supports pixel units)
+ * 
+ * @param {HTMLElement} element REQUIRED: Target element to perform computations on
+ * 
+ * @return The computed bounding rectangle of the given element
+ */
+function GetFixedBoundingRect(element)
+{
+	const br = element.getBoundingClientRect();
+	const cmp = getComputedStyle(element);
+
+	const dr = document.body.getBoundingClientRect();
+
+	const t = br.top;
+	const r = dr.width - (br.left + br.width);
+	const b = dr.height - (br.top + br.height);
+	const l = br.left;
+	const w = parseInt(cmp.width) | 0;
+	const h = parseInt(cmp.height) | 0;
+
+	return { t:t, r:r, b:b, l:l, w:w, h:h, orig:br };
+}
+/* END: Fun code */

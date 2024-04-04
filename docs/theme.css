@@ -1,0 +1,29 @@
+:root[theme=dark]
+{
+	--background: #000;
+	--background-gradient-opacity: 0.95;
+	--background-popup: #444;
+	--background-btn: #FFFFFF20;
+	--background-btn-hover: #FFFFFF34;
+	--background-btn-active: #FFFFFF10;
+	--foreground: #FFF;
+	--foreground-translucent: #FFFFFFD0;
+	--foreground-nofocus: #AAA;
+	--foreground-sub: #666;
+}
+
+:root[theme=lite]
+{
+	--background: #EDF0F4;
+	--background-gradient-opacity: 0.625;
+	--background-popup: #CCC;
+	--background-btn: #00000020;
+	--background-btn-hover: #00000034;
+	--background-btn-active: #00000010;
+	--foreground: #000;
+	--foreground-translucent: #000000DF;
+	--foreground-nofocus: #666;
+	--foreground-sub: #999;
+}
+
+:root[theme=lite] #background { background-size: 75% 100%; background-position-x: 125%; }

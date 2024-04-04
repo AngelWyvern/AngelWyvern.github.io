@@ -1,0 +1,24 @@
+@font-face
+{
+    font-family: "Whitney";
+    src: url(/static/fonts/whitney-medium.otf);
+}
+
+div { color: #DBDEE1; font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.content { display: flex; flex-direction: column; }
+
+.discord-profile-outer { width: 600px; height: 692px; background: linear-gradient(var(--profile-gradient-primary-color),var(--profile-gradient-primary-color)120px,var(--profile-gradient-secondary-color)); border-radius: 8px; padding: 4px; position: absolute; }
+.discord-profile-inner { flex-grow: 1; border-radius: 4px; background: #00000099; }
+.discord-profile-banner { width: 600px; height: 212px; margin-bottom: 60px; background-image: url(/static/profile/curBanner.png); background-size: var(--banner-crop-size); background-position: var(--banner-crop-pos); border-radius: 4px 4px 0 0; mask-image: url(/static/masks/discord-banner-mask-alpha.png); }
+.discord-profile-avatar { position: absolute; top: 151px; left: 26px; width: 120px; height: 120px; background-image: url(/static/profile/curAvatar.png); background-size: var(--avatar-crop-size); background-position: var(--avatar-crop-pos); border-radius: 64px; }
+.discord-profile-body { flex-grow: 1; margin: 16px; padding: 12px; background: #00000073; border-radius: 8px; overflow: hidden; }
+.discord-profile-username { font-size: 20px; line-height: 24px; user-select: none; }
+.discord-profile-handle { font-size: 14px; line-height: 24px; }
+.discord-profile-separator { margin-top: 20px; border-bottom: 1px solid #FFFFFF3D; }
+.discord-profile-info { padding: 16px 0; }
+.discord-profile-info-section { font-weight: 700; margin-bottom: 8px; font-size: 12px; line-height: 16px; text-transform: uppercase; letter-spacing: 0.24px; user-select: none; }
+.discord-profile-info-date { user-select: none; }
+.discord-profile-info-text { margin-bottom: 16px; font-size: 14px; line-height: 18px; }
+.discord-markup-quote-container { margin-left: 4px; padding: 0 8px 0 12px; position: relative; }
+.discord-markup-quote-container:before { content: ''; position: absolute; left: -4px; top: 0; bottom: 0; width: 4px; border-radius: 4px; background-color: #4E5058; }
+.discord-profile-username, .discord-profile-info-section, .discord-profile-info-text strong { color: #F2F3F5; }
