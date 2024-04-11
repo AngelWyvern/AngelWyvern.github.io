@@ -42,6 +42,7 @@ If CSS is so extensive, why aren't native UIs for our OSes?
 OOP is the way to go, change my mind.
 Valve Source 2 SDK when?
 Of all things, I learned proper networking by modding FNF.
+Windows should really adopt a more glassy visual style again.
 
 Dragons... they're really cool.
 Leave me alone, I'm chilling in my cabin.
