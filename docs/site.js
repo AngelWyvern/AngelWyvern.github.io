@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () =>
 		root.setAttribute('theme', themeCookie);
 	/* END: Cookie loading */
 
-	document.querySelector('#copyright').innerText = `Copyright © 2022-${new Date().getUTCFullYear()} angeldtf.github.io - All Rights Reserved.`;
+	document.querySelector('#copyright').innerText = `Copyright © 2022-${new Date().getUTCFullYear()} angelwyvern.github.io - All Rights Reserved.`;
 
 	const blur = document.querySelector('#blur');
 	blur.addEventListener('click', (e) =>
